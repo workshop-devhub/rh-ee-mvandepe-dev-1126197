@@ -1,0 +1,53 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rh-ee-mvandepe-dev-1126197-service
+  description: 'The Liberty service for rh-ee-mvandepe-dev-1126197 (Creates an Open Liberty getting started app)'
+  annotations:
+    argocd/app-name: rh-ee-mvandepe-dev-1126197-dev
+    backstage.io/kubernetes-id: rh-ee-mvandepe-dev-1126197
+    backstage.io/kubernetes-namespace: rh-ee-mvandepe-dev
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: workshop-devhub/rh-ee-mvandepe-dev-1126197
+    janus-idp.io/tekton : rh-ee-mvandepe-dev-1126197
+    argocd/app-selector: rh-ee-mvandepe-dev-1126197-dev
+    openliberty.io/app-kind: OpenLibertyApplication
+  labels:
+    backstage.io/kubernetes-id: rh-ee-mvandepe-dev-1126197
+  tags:
+    - java
+    - liberty
+    - maven
+    - example
+  links:
+    - url: https://console-openshift-consoleapps.rm1.0a51.p1.openshiftapps.com/k8s/ns/rh-ee-mvandepe-dev/deployments/rh-ee-mvandepe-dev-1126197
+      title: Deployment
+      icon: web
+    - url: https://openliberty.io/docs/latest/overview.html
+      title: Open Liberty Docs
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: "user:default/maarten-vandeperre"
+  providesApis:
+    - rh-ee-mvandepe-dev-1126197-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rh-ee-mvandepe-dev-1126197-api
+  description: API surface exposed by the Liberty service
+  links:
+    - url: https://rh-ee-mvandepe-dev-1126197-rh-ee-mvandepe-devapps.rm1.0a51.p1.openshiftapps.com/q/swagger-ui
+      title: Swagger UI
+      icon: web
+    - url: https://github.com/workshop-devhub/rh-ee-mvandepe-dev-1126197/-/blob/main/src/main/resources/META-INF/openapi.yaml
+      title: API Spec
+      icon: code
+spec:
+  type: openapi
+  lifecycle: production
+  owner: "user:default/maarten-vandeperre"
+  definition:
+    $text: ./src/main/resources/META-INF/openapi.yaml
