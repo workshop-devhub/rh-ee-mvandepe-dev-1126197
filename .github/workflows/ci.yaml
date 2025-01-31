@@ -23,11 +23,13 @@ jobs:
       
     steps:
     - uses: actions/checkout@v4
+    - name: Sanitize repository owner
+      run: echo "REPO_OWNER=${GITHUB_ACTOR//[^a-zA-Z0-9_-]}" >> $GITHUB_ENV
     - name: Log in to the Container registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
       with:
         registry: ${{ env.IMAGE_REGISTRY }}
-        username: ${{ github.actor }}
+        username: ${{ env.REPO_OWNER }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Set up JDK 11
       uses: actions/setup-java@v4
@@ -43,5 +45,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ env.IMAGE_REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        tags: ${{ env.IMAGE_REGISTRY }}/${{ env.REPO_OWNER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
         labels: ${{ steps.meta.outputs.labels }}
